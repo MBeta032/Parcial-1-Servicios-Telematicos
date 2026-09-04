@@ -237,9 +237,9 @@ compresión configurada en la Parte 2.
 ## 👥 Integrantes
 
 | Nombre | Código |
-| :--- | :--- |
-| Manuel Betancourt | — |
-| *(pendiente)* | — |
+| Sharon Zuray Abella Dias | 2236364 |
+| Manuel Betancurt Perez | 2236320 |
+| Alan Yesid Basante Portilla | 2236708 |
 
 > Todos los integrantes pueden explicar y ejecutar cualquier parte del proyecto.
 

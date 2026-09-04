@@ -1,0 +1,10 @@
+.vagrant/
+*.box
+*.vdi
+*.vmdk
+*.ova
+*.iso
+*.log
+*-console.log
+Thumbs.db
+desktop.ini

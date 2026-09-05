@@ -1,0 +1,44 @@
+;
+; Zona directa de empresa.local
+; Maestro: ns1.empresa.local (192.168.50.3)
+; Parcial 1 - Servicios Telematicos - UAO
+;
+$TTL    3600
+@       IN      SOA     ns1.empresa.local. admin.empresa.local. (
+                        2026090401      ; Serial  AAAAMMDDNN
+                        3600            ; Refresh  1 hora
+                        600             ; Retry    10 minutos
+                        1209600         ; Expire   14 dias
+                        300 )           ; Minimum  5 minutos (TTL negativo)
+
+; ---------- Servidores de nombres ----------
+@       IN      NS      ns1.empresa.local.
+@       IN      NS      ns2.empresa.local.
+
+; ---------- Servidor de correo ----------
+@       IN      MX 10   mail.empresa.local.
+
+; ---------- Registros A (IPv4) ----------
+@       IN      A       192.168.50.3
+ns1     IN      A       192.168.50.3
+ns2     IN      A       192.168.50.2
+maestro IN      A       192.168.50.3
+esclavo IN      A       192.168.50.2
+www     IN      A       192.168.50.3
+mail    IN      A       192.168.50.3
+parcial IN      A       192.168.50.3
+cliente IN      A       192.168.50.1
+pc01    IN      A       192.168.50.10
+
+; ---------- Registros AAAA (IPv6) ----------
+@       IN      AAAA    fd00:50::3
+ns1     IN      AAAA    fd00:50::3
+ns2     IN      AAAA    fd00:50::2
+maestro IN      AAAA    fd00:50::3
+esclavo IN      AAAA    fd00:50::2
+www     IN      AAAA    fd00:50::3
+mail    IN      AAAA    fd00:50::3
+
+; ---------- Alias (CNAME) ----------
+ftp     IN      CNAME   www.empresa.local.
+web     IN      CNAME   www.empresa.local.

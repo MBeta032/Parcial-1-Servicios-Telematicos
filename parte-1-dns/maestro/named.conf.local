@@ -5,28 +5,35 @@
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
 //include "/etc/bind/zones.rfc1918";
-zone "betancurt.com" {
-    type master;
-    file "/etc/bind/db.betancurt.com";
-};
+//zone "betancurt.com" {
+//    type master;
+//    file "/etc/bind/db.betancurt.com";
+//};
 
-zone "50.168.192.in-addr.arpa" {
-    type master;
-    file "/etc/bind/db.192";
-};
+//zone "50.168.192.in-addr.arpa" {
+//    type master;
+//    file "/etc/bind/db.192";
+//};
 
-zone "servicios.com" {
-    type master;
-    file "/etc/bind/db.servicios.com";
-};
+//zone "servicios.com" {
+//    type master;
+//    file "/etc/bind/db.servicios.com";
+//};
 
-zone "miotrositio.com" {
-	type master;
-	file "/etc/bind/db.miotrositio.com";
-};
+//zone "miotrositio.com" {
+//	type master;
+//	file "/etc/bind/db.miotrositio.com";
+//};
 
 // ===== PARCIAL 1 - Zona directa =====
 zone "empresa.local" {
     type master;
     file "/etc/bind/db.empresa.local";
 };
+
+// ===== PARCIAL 1 - Zona inversa =====
+zone "50.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.192.168.50";
+};
+

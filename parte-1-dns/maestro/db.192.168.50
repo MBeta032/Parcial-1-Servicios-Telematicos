@@ -1,0 +1,22 @@
+;
+; Zona inversa de la red 192.168.50.0/24
+; Maestro: ns1.empresa.local (192.168.50.3)
+; Parcial 1 - Servicios Telematicos - UAO
+;
+$TTL    3600
+@       IN      SOA     ns1.empresa.local. admin.empresa.local. (
+                        2026090401      ; Serial  AAAAMMDDNN
+                        3600            ; Refresh  1 hora
+                        600             ; Retry    10 minutos
+                        1209600         ; Expire   14 dias
+                        300 )           ; Minimum  5 minutos
+
+; ---------- Servidores de nombres ----------
+@       IN      NS      ns1.empresa.local.
+@       IN      NS      ns2.empresa.local.
+
+; ---------- Registros PTR (ultimo octeto de la IP) ----------
+1       IN      PTR     cliente.empresa.local.
+2       IN      PTR     esclavo.empresa.local.
+3       IN      PTR     maestro.empresa.local.
+10      IN      PTR     pc01.empresa.local.

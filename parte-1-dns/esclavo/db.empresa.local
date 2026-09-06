@@ -1,0 +1,32 @@
+$ORIGIN .
+$TTL 3600	; 1 hour
+empresa.local		IN SOA	ns1.empresa.local. admin.empresa.local. (
+				2026090402 ; serial
+				3600       ; refresh (1 hour)
+				600        ; retry (10 minutes)
+				1209600    ; expire (2 weeks)
+				300        ; minimum (5 minutes)
+				)
+			NS	ns1.empresa.local.
+			NS	ns2.empresa.local.
+			A	192.168.50.3
+			MX	10 mail.empresa.local.
+			AAAA	fd00:50::3
+$ORIGIN empresa.local.
+cliente			A	192.168.50.1
+esclavo			A	192.168.50.2
+			AAAA	fd00:50::2
+ftp			CNAME	www
+maestro			A	192.168.50.3
+			AAAA	fd00:50::3
+mail			A	192.168.50.3
+			AAAA	fd00:50::3
+ns1			A	192.168.50.3
+			AAAA	fd00:50::3
+ns2			A	192.168.50.2
+			AAAA	fd00:50::2
+parcial			A	192.168.50.3
+pc01			A	192.168.50.10
+web			CNAME	www
+www			A	192.168.50.3
+			AAAA	fd00:50::3

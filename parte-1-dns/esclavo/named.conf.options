@@ -21,10 +21,7 @@ options {
 
 	listen-on-v6 { any; };
 
-    	// Calcular diferencias al recargar, para que IXFR funcione de verdad
-    	ixfr-from-differences yes;
-        
-	// ========== HARDENING - PARCIAL 1 ==========
+        // ========== HARDENING - PARCIAL 1 ==========
 
         // 1. Autoritativo, no resolver: no resuelve dominios externos
         recursion no;
@@ -44,5 +41,4 @@ options {
 
         // 5. Sin validacion DNSSEC: un autoritativo no valida respuestas ajenas
         dnssec-validation no;
-
 };

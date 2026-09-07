@@ -25,13 +25,16 @@
 //	file "/etc/bind/db.miotrositio.com";
 //};
 
+// ===== PARCIAL 1 - Clave TSIG =====
+include "/etc/bind/keys/esclavo.key";
+
 // ===== PARCIAL 1 - Zona directa =====
 zone "empresa.local" {
     type master;
     file "/etc/bind/db.empresa.local";
     notify yes;                            // avisar al cambiar
     also-notify { 192.168.50.2; };         // avisar al esclavo
-    allow-transfer { 192.168.50.2; };      // solo el esclavo puede copiar
+    allow-transfer { key "esclavo-key"; };   // <-- ya no es la IP      // solo el esclavo puede copiar
 };
 
 // ===== PARCIAL 1 - Zona inversa =====
@@ -40,6 +43,6 @@ zone "50.168.192.in-addr.arpa" {
     file "/etc/bind/db.192.168.50";
     notify yes;
     also-notify { 192.168.50.2; };
-    allow-transfer { 192.168.50.2; };
+    allow-transfer { key "esclavo-key"; };   // <-- ya no es la IP;
 };
 

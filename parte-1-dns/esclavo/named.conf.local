@@ -6,6 +6,14 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
+// ===== PARCIAL 1 - Clave TSIG =====
+include "/etc/bind/keys/esclavo.key";
+
+// Firmar todo lo que se le envíe al maestro
+server 192.168.50.3 {
+    keys { "esclavo-key"; };
+};
+
 // ===== PARCIAL 1 - Zona directa (COPIA) =====
 zone "empresa.local" {
     type slave;

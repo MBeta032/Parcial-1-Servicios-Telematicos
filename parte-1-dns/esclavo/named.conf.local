@@ -33,3 +33,45 @@ zone "50.168.192.in-addr.arpa" {
     notify-source 192.168.50.2;
     masterfile-format text;
 };
+
+// ===== PARCIAL 1 - AUDITORIA =====
+logging {
+
+        channel queries_log {
+                file "/var/log/named/queries.log" versions 3 size 5m;
+                severity info;
+                print-time yes;
+                print-category yes;
+                print-severity yes;
+        };
+
+        channel transfers_log {
+                file "/var/log/named/transfers.log" versions 3 size 5m;
+                severity info;
+                print-time yes;
+                print-category yes;
+                print-severity yes;
+        };
+
+        channel security_log {
+                file "/var/log/named/security.log" versions 3 size 5m;
+                severity info;
+                print-time yes;
+                print-category yes;
+                print-severity yes;
+        };
+
+        channel ratelimit_log {
+                file "/var/log/named/rate-limit.log" versions 3 size 5m;
+                severity info;
+                print-time yes;
+                print-category yes;
+        };
+
+        category queries      { queries_log; };
+        category xfer-out     { transfers_log; };
+        category xfer-in      { transfers_log; };
+        category notify       { transfers_log; };
+        category security     { security_log; };
+        category rate-limit   { ratelimit_log; };
+};

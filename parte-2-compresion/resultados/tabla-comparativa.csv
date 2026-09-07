@@ -1,0 +1,73 @@
+archivo,tipo,algoritmo,nivel,bytes,ratio,ahorro_pct,t_total_ms,t_servidor_ms,tx_10mbps_ms
+index.html,HTML,identity,-,438093,1.000,0.0,0.582,0.320,350.5
+index.html,HTML,gzip,1,12293,0.028,97.2,1.918,1.839,9.8
+index.html,HTML,gzip,6,12779,0.029,97.1,3.456,3.373,10.2
+index.html,HTML,gzip,9,12647,0.029,97.1,3.779,3.702,10.1
+index.html,HTML,brotli,5,5643,0.013,98.7,4.326,4.226,4.5
+index.html,HTML,brotli,11,4646,0.011,98.9,1451.674,1451.559,3.7
+estilos.css,CSS sin minificar,identity,-,268893,1.000,0.0,0.377,0.025,215.1
+estilos.css,CSS sin minificar,gzip,1,4949,0.018,98.2,1.186,1.116,4.0
+estilos.css,CSS sin minificar,gzip,6,4762,0.018,98.2,2.060,1.991,3.8
+estilos.css,CSS sin minificar,gzip,9,4704,0.017,98.3,2.316,2.244,3.8
+estilos.css,CSS sin minificar,brotli,5,2394,0.009,99.1,3.224,3.133,1.9
+estilos.css,CSS sin minificar,brotli,11,2269,0.008,99.2,711.872,711.766,1.8
+estilos.min.css,CSS minificado,identity,-,219393,1.000,0.0,0.336,0.018,175.5
+estilos.min.css,CSS minificado,gzip,1,4754,0.022,97.8,1.055,0.986,3.8
+estilos.min.css,CSS minificado,gzip,6,4583,0.021,97.9,1.796,1.727,3.7
+estilos.min.css,CSS minificado,gzip,9,4527,0.021,97.9,1.939,1.873,3.6
+estilos.min.css,CSS minificado,brotli,5,2384,0.011,98.9,2.714,2.621,1.9
+estilos.min.css,CSS minificado,brotli,11,2134,0.010,99.0,633.117,633.002,1.7
+app.js,JavaScript (jQuery real),identity,-,285314,1.000,0.0,0.457,0.052,228.3
+app.js,JavaScript (jQuery real),gzip,1,102649,0.360,64.0,6.143,3.589,82.1
+app.js,JavaScript (jQuery real),gzip,6,84014,0.294,70.6,14.574,10.084,67.2
+app.js,JavaScript (jQuery real),gzip,9,83592,0.293,70.7,24.662,16.878,66.9
+app.js,JavaScript (jQuery real),brotli,5,79680,0.279,72.1,10.672,10.464,63.7
+app.js,JavaScript (jQuery real),brotli,11,69545,0.244,75.6,490.416,490.223,55.6
+datos.json,JSON,identity,-,1348682,1.000,0.0,1.176,0.437,1078.9
+datos.json,JSON,gzip,1,68289,0.051,94.9,6.305,5.085,54.6
+datos.json,JSON,gzip,6,68879,0.051,94.9,11.455,8.054,55.1
+datos.json,JSON,gzip,9,68366,0.051,94.9,27.192,18.914,54.7
+datos.json,JSON,brotli,5,25315,0.019,98.1,20.990,20.840,20.3
+datos.json,JSON,brotli,11,23745,0.018,98.2,3405.272,3405.139,19.0
+grafico.svg,SVG,identity,-,338798,1.000,0.0,0.482,0.202,271.0
+grafico.svg,SVG,gzip,1,24749,0.073,92.7,2.482,2.397,19.8
+grafico.svg,SVG,gzip,6,20666,0.061,93.9,4.212,4.135,16.5
+grafico.svg,SVG,gzip,9,19498,0.058,94.2,13.772,13.676,15.6
+grafico.svg,SVG,brotli,5,20771,0.061,93.9,4.924,4.826,16.6
+grafico.svg,SVG,brotli,11,16022,0.047,95.3,608.905,608.785,12.8
+feed.xml,XML,identity,-,772806,1.000,0.0,0.719,0.192,618.2
+feed.xml,XML,gzip,1,37050,0.048,95.2,3.734,3.595,29.6
+feed.xml,XML,gzip,6,35662,0.046,95.4,9.540,9.360,28.5
+feed.xml,XML,gzip,9,35390,0.046,95.4,8.536,8.428,28.3
+feed.xml,XML,brotli,5,13851,0.018,98.2,8.160,8.060,11.1
+feed.xml,XML,brotli,11,15702,0.020,98.0,1534.504,1534.392,12.6
+lorem.txt,Texto plano,identity,-,1340000,1.000,0.0,1.237,0.451,1072.0
+lorem.txt,Texto plano,gzip,1,12452,0.009,99.1,4.835,4.748,10.0
+lorem.txt,Texto plano,gzip,6,6109,0.005,99.5,11.483,11.385,4.9
+lorem.txt,Texto plano,gzip,9,6109,0.005,99.5,9.304,9.207,4.9
+lorem.txt,Texto plano,brotli,5,273,0.000,100.0,3.677,3.580,0.2
+lorem.txt,Texto plano,brotli,11,222,0.000,100.0,27.353,27.249,0.2
+foto.jpg,Imagen JPEG,identity,-,133564,1.000,0.0,0.278,0.020,106.9
+foto.jpg,Imagen JPEG,gzip,1,133564,1.000,0.0,0.391,0.024,106.9
+foto.jpg,Imagen JPEG,gzip,6,133564,1.000,0.0,0.365,0.023,106.9
+foto.jpg,Imagen JPEG,gzip,9,133564,1.000,0.0,0.291,0.019,106.9
+foto.jpg,Imagen JPEG,brotli,5,133564,1.000,0.0,0.364,0.022,106.9
+foto.jpg,Imagen JPEG,brotli,11,133564,1.000,0.0,0.277,0.018,106.9
+imagen.png,Imagen PNG,identity,-,2554638,1.000,0.0,2.116,0.405,2043.7
+imagen.png,Imagen PNG,gzip,1,2554638,1.000,0.0,2.277,0.596,2043.7
+imagen.png,Imagen PNG,gzip,6,2554638,1.000,0.0,2.071,0.353,2043.7
+imagen.png,Imagen PNG,gzip,9,2554638,1.000,0.0,2.397,0.372,2043.7
+imagen.png,Imagen PNG,brotli,5,2554638,1.000,0.0,2.043,0.522,2043.7
+imagen.png,Imagen PNG,brotli,11,2554638,1.000,0.0,2.135,0.435,2043.7
+clip.mp4,Video MP4,identity,-,2848208,1.000,0.0,2.274,0.440,2278.6
+clip.mp4,Video MP4,gzip,1,2848208,1.000,0.0,2.176,0.455,2278.6
+clip.mp4,Video MP4,gzip,6,2848208,1.000,0.0,2.442,0.531,2278.6
+clip.mp4,Video MP4,gzip,9,2848208,1.000,0.0,2.442,0.522,2278.6
+clip.mp4,Video MP4,brotli,5,2848208,1.000,0.0,3.387,0.589,2278.6
+clip.mp4,Video MP4,brotli,11,2848208,1.000,0.0,2.334,0.442,2278.6
+paquete.zip,Archivo ZIP,identity,-,122892,1.000,0.0,0.486,0.272,98.3
+paquete.zip,Archivo ZIP,gzip,1,122892,1.000,0.0,0.293,0.017,98.3
+paquete.zip,Archivo ZIP,gzip,6,122892,1.000,0.0,0.294,0.020,98.3
+paquete.zip,Archivo ZIP,gzip,9,122892,1.000,0.0,0.311,0.024,98.3
+paquete.zip,Archivo ZIP,brotli,5,122892,1.000,0.0,0.401,0.063,98.3
+paquete.zip,Archivo ZIP,brotli,11,122892,1.000,0.0,0.286,0.016,98.3

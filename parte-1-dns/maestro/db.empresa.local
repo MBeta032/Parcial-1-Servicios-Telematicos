@@ -5,7 +5,7 @@
 ;
 $TTL    3600
 @       IN      SOA     ns1.empresa.local. admin.empresa.local. (
-                        2026090402      ; Serial  AAAAMMDDNN
+                        2026090403      ; Serial  AAAAMMDDNN
                         3600            ; Refresh  1 hora
                         600             ; Retry    10 minutos
                         1209600         ; Expire   14 dias
@@ -29,7 +29,7 @@ mail    IN      A       192.168.50.3
 parcial IN      A       192.168.50.3
 cliente IN      A       192.168.50.1
 pc01    IN      A       192.168.50.10
-
+soporte IN      A       192.168.50.20
 ; ---------- Registros AAAA (IPv6) ----------
 @       IN      AAAA    fd00:50::3
 ns1     IN      AAAA    fd00:50::3

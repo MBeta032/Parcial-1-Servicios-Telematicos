@@ -5,7 +5,7 @@
 ;
 $TTL    3600
 @       IN      SOA     ns1.empresa.local. admin.empresa.local. (
-                        2026090401      ; Serial  AAAAMMDDNN
+                        2026090403      ; Serial  AAAAMMDDNN
                         3600            ; Refresh  1 hora
                         600             ; Retry    10 minutos
                         1209600         ; Expire   14 dias
@@ -20,3 +20,4 @@ $TTL    3600
 2       IN      PTR     esclavo.empresa.local.
 3       IN      PTR     maestro.empresa.local.
 10      IN      PTR     pc01.empresa.local.
+20      IN      PTR     soporte.empresa.local.

@@ -272,18 +272,6 @@ configurada en la Parte 2.
 | 19 | Compresión verificada a través del túnel | ✅ |
 | 20 | Análisis de seguridad con mitigaciones | ✅ |
 
----
-
-## 🤖 Declaración de uso de asistentes de IA
-
-Se utilizó **Claude (Anthropic)** como apoyo para el estudio de los conceptos, la
-redacción de la documentación y la revisión de los archivos de configuración.
-
-Todos los comandos fueron **ejecutados y verificados** por los integrantes del grupo, y
-cada línea de configuración entregada puede ser explicada y justificada durante la
-sustentación.
-
----
 
 ## 📚 Referencias
 

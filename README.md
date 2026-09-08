@@ -13,8 +13,21 @@
 ![Apache](https://img.shields.io/badge/Apache2-mod__deflate%20%2B%20mod__brotli-D22128?style=flat-square&logo=apache&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04%20LTS-E95420?style=flat-square&logo=ubuntu&logoColor=white)
 ![Vagrant](https://img.shields.io/badge/Vagrant-VirtualBox-1868F2?style=flat-square&logo=vagrant&logoColor=white)
+![Cloudflare](https://img.shields.io/badge/Cloudflare-Tunnel-F38020?style=flat-square&logo=cloudflare&logoColor=white)
 
 </div>
+
+---
+
+## 👥 Integrantes
+
+| | Nombre | Código |
+| :---: | :--- | :--- |
+| 🎓 | **Sharon Zuray Abella Dias** | `2236364` |
+| 🎓 | **Manuel Betancurt Perez** | `2236320` |
+| 🎓 | **Alan Yesid Basante Portilla** | `2236708` |
+
+<sub>Todos los integrantes pueden explicar y ejecutar cualquier parte del proyecto.</sub>
 
 ---
 
@@ -29,19 +42,17 @@
 | [🚀 Puesta en marcha](#-puesta-en-marcha) | Cómo levantar el entorno |
 | [📦 Contenido por parte](#-contenido-por-parte) | Detalle de las tres partes |
 | [✅ Estado del proyecto](#-estado-del-proyecto) | Avance por requisito |
-| [👥 Integrantes](#-integrantes) | Quiénes lo desarrollaron |
 | [🤖 Declaración de uso de IA](#-declaración-de-uso-de-asistentes-de-ia) | Transparencia académica |
 
 ---
 
 ## 🎯 Descripción
 
-Este repositorio contiene la implementación completa de la infraestructura de red
-de la empresa ficticia **`empresa.local`**, montada sobre dos máquinas virtuales
-Ubuntu Server gestionadas con Vagrant y VirtualBox.
+Este repositorio contiene la implementación de la infraestructura de red de la empresa
+ficticia **`empresa.local`**, montada sobre dos máquinas virtuales Ubuntu Server
+gestionadas con Vagrant y VirtualBox.
 
-El proyecto se compone de tres partes que **se construyen sobre la misma
-infraestructura**, no son ejercicios independientes:
+Las tres partes se construyen sobre la misma infraestructura:
 
 > 🏢 **Parte 1** — Un servidor DNS con su respaldo automático y autenticado, capaz de
 > seguir respondiendo aunque el servidor principal se caiga.
@@ -73,12 +84,12 @@ flowchart LR
     M -->|"2 · NOTIFY"| E
     E -->|"3 · AXFR / IXFR firmado con TSIG"| M
     C -->|"4 · HTTP con gzip / brotli"| M
-    M -->|"5 · túnel público"| NET
+    M -->|"5 · túnel cloudflared"| NET
 ```
 
 > [!IMPORTANT]
 > El cliente resuelve nombres **únicamente a través del esclavo**. Nunca consulta
-> directamente al maestro. Esta separación es lo que permite demostrar la
+> directamente al maestro. Esa separación es lo que permite demostrar la
 > **continuidad del servicio**: al apagar el maestro, el cliente sigue resolviendo.
 
 ---
@@ -109,19 +120,20 @@ flowchart LR
 │
 ├── 📁 parte-1-dns/                 🔴 DNS maestro/esclavo — 2.0 pts
 │   ├── maestro/                    named.conf.*, db.empresa.local, db.192.168.50
-│   ├── esclavo/                    named.conf.* del servidor secundario
+│   ├── esclavo/                    named.conf.*, zonas copiadas, 99-parcial.yaml
 │   ├── tsig/                       Clave simétrica de transferencia
-│   ├── comandos/                   Comandos de prueba y verificación
-│   └── logs/                       Muestras de los logs de auditoría
+│   ├── comandos/                   Comandos de prueba de los 9 requisitos
+│   └── logs/                       queries, transfers, security y rate-limit
 │
 ├── 📁 parte-2-compresion/          🔵 Compresión en Apache — 2.0 pts
 │   ├── apache/                     deflate.conf, brotli.conf, VirtualHost
 │   ├── sitio/                      Recursos de prueba por tipo de archivo
-│   ├── scripts/                    Medición automatizada con curl
+│   ├── scripts/                    generar-sitio.sh y medir-compresion.sh
 │   └── resultados/                 Tabla comparativa y análisis crítico
 │
 └── 📁 parte-3-tunel/               🟢 Publicación segura — 1.0 pt
-    └──                             Página personalizada y comandos del túnel
+    ├── pagina_personalizada.html   Página de verificación de acceso remoto
+    └── analisis-seguridad.md       Riesgos y mitigaciones del túnel
 ```
 
 ---
@@ -138,10 +150,21 @@ vagrant ssh maestro
 vagrant ssh esclavo
 ```
 
+Para publicar el sitio en Internet, desde el maestro:
+
+```bash
+cloudflared tunnel --url http://localhost:80 --http-host-header parcial.empresa.local
+```
+
 > [!NOTE]
-> La carpeta del proyecto se sincroniza automáticamente en `/vagrant` dentro de
-> cada VM. Por eso los archivos de configuración se copian directamente al
-> repositorio desde la propia máquina virtual.
+> La URL pública se genera de forma aleatoria cada vez que se levanta el túnel, así que
+> no puede fijarse aquí. Se obtiene al arrancar `cloudflared` y se comparte en el momento
+> de la sustentación.
+
+> [!TIP]
+> La carpeta del proyecto se sincroniza automáticamente en `/vagrant` dentro de cada VM.
+> Por eso los archivos de configuración se copian directamente al repositorio desde la
+> propia máquina virtual.
 
 ---
 
@@ -160,7 +183,7 @@ transferencia de zona autenticada y endurecimiento de seguridad.
 - Zona directa `empresa.local` con registros `A`, `AAAA`, `CNAME`, `MX`, `NS` y `SOA`
 - Zona inversa `50.168.192.in-addr.arpa` con registros `PTR`
 - Replicación automática mediante `NOTIFY` + `AXFR` / `IXFR`
-- Autenticación de la transferencia con clave **TSIG**
+- Autenticación de la transferencia con clave **TSIG** (HMAC-SHA256)
 - **Hardening:** recursión desactivada, `allow-transfer`, `allow-query` y *rate limiting*
 - **Auditoría:** logging separado por categorías `queries`, `transfers` y `security`
 - **Continuidad:** el servicio sobrevive a la caída del maestro
@@ -175,16 +198,16 @@ transferencia de zona autenticada y endurecimiento de seguridad.
 <br/>
 
 Caracterización experimental de dos algoritmos de compresión HTTP sobre distintos
-tipos de contenido.
+tipos de contenido. **72 mediciones** sobre 12 recursos.
 
 **Implementa:**
 
 - `mod_deflate` (gzip) evaluado en niveles **1**, **6** y **9**
 - `mod_brotli` evaluado en calidades **5** y **11**
 - Exclusión de binarios ya comprimidos (JPEG, PNG, MP4, ZIP)
-- Mediciones de tamaño, ratio, ahorro %, tiempo de transmisión y costo de CPU
+- Mediciones de tamaño, ratio, ahorro %, tiempo de servidor y transmisión estimada
 - Evidencia por terminal (`curl`), navegador (*DevTools → Network*) y Wireshark
-- Análisis crítico argumentado con datos
+- Análisis crítico argumentado con los cinco puntos del enunciado
 
 📂 `parte-2-compresion/`
 
@@ -195,15 +218,16 @@ tipos de contenido.
 
 <br/>
 
-Exposición del servidor web local a Internet mediante un túnel, conservando la
-compresión configurada en la Parte 2.
+Exposición del servidor web a Internet mediante un túnel, conservando la compresión
+configurada en la Parte 2.
 
 **Implementa:**
 
-- Túnel público con `ngrok` / `vagrant share` / `cloudflared`
-- Página personalizada para verificar el acceso remoto
-- Verificación de que la cabecera `Content-Encoding` sobrevive al túnel
-- Análisis de riesgos y mitigaciones de exponer un servicio público
+- Túnel público con `cloudflared`
+- Página personalizada con datos de identificación e identificador único
+- Verificación de que `Content-Encoding` sobrevive al túnel
+- Prueba de acceso remoto desde otra red (datos móviles)
+- Análisis de riesgos y mitigaciones
 
 📂 `parte-3-tunel/`
 
@@ -213,35 +237,40 @@ compresión configurada en la Parte 2.
 
 ## ✅ Estado del proyecto
 
+### 🔴 Parte 1 — DNS Maestro/Esclavo
+
 | # | Requisito | Estado |
 | :---: | :--- | :---: |
-| **1** | BIND9 instalado y configurado en ambas VMs | 🔄 |
-| **2** | Zona directa `empresa.local` | ⬜ |
-| **3** | Zona inversa con registros `PTR` | ⬜ |
-| **4** | `NOTIFY` + transferencia `AXFR` / `IXFR` | ⬜ |
-| **5** | Transferencia segura con **TSIG** | ⬜ |
-| **6** | Sincronización automática del serial | ⬜ |
-| **7** | Hardening: recursión, ACLs y *rate limiting* | ⬜ |
-| **8** | Auditoría mediante logging por categorías | ⬜ |
-| **9** | Continuidad con el maestro apagado | ⬜ |
-| **10** | Apache + `mod_deflate` (niveles 1 / 6 / 9) | ⬜ |
-| **11** | `mod_brotli` (calidades 5 y 11) | ⬜ |
-| **12** | Mediciones y tabla comparativa | ⬜ |
-| **13** | Análisis crítico | ⬜ |
-| **14** | Túnel público y acceso remoto | ⬜ |
+| 1 | BIND9 instalado y configurado en ambas VMs | ✅ |
+| 2 | Zona directa `empresa.local` (A, AAAA, CNAME, MX, NS, SOA) | ✅ |
+| 3 | Zona inversa con registros `PTR` | ✅ |
+| 4 | `NOTIFY` + transferencia `AXFR` / `IXFR` | ✅ |
+| 5 | Transferencia segura con **TSIG** | ✅ |
+| 6 | Sincronización automática del serial | ✅ |
+| 7 | Hardening: recursión, ACLs y *rate limiting* | ✅ |
+| 8 | Auditoría mediante logging por categorías | ✅ |
+| 9 | Continuidad con el maestro apagado | ✅ |
 
-<div align="right"><sub>✅ completo · 🔄 en progreso · ⬜ pendiente</sub></div>
+### 🔵 Parte 2 — Compresión en Apache
 
----
+| # | Requisito | Estado |
+| :---: | :--- | :---: |
+| 10 | Apache + sitio de prueba + DNS de `parcial.empresa.local` | ✅ |
+| 11 | `mod_deflate` con niveles 1 / 6 / 9 medidos | ✅ |
+| 12 | Exclusión de binarios ya comprimidos | ✅ |
+| 13 | `mod_brotli` con calidades 5 y 11 | ✅ |
+| 14 | Tabla comparativa (ratio, ahorro %, tiempo) | ✅ |
+| 15 | Evidencia con `curl`, navegador y Wireshark | ✅ |
+| 16 | Análisis crítico argumentado con datos | ✅ |
 
-## 👥 Integrantes
+### 🟢 Parte 3 — Publicación segura
 
-| Nombre | Código |
-| Sharon Zuray Abella Dias | 2236364 |
-| Manuel Betancurt Perez | 2236320 |
-| Alan Yesid Basante Portilla | 2236708 |
-
-> Todos los integrantes pueden explicar y ejecutar cualquier parte del proyecto.
+| # | Requisito | Estado |
+| :---: | :--- | :---: |
+| 17 | Túnel activo y URL pública funcionando | ✅ |
+| 18 | Página personalizada visible desde otra red | ✅ |
+| 19 | Compresión verificada a través del túnel | ✅ |
+| 20 | Análisis de seguridad con mitigaciones | ✅ |
 
 ---
 
@@ -250,9 +279,9 @@ compresión configurada en la Parte 2.
 Se utilizó **Claude (Anthropic)** como apoyo para el estudio de los conceptos, la
 redacción de la documentación y la revisión de los archivos de configuración.
 
-Todos los comandos fueron **ejecutados y verificados** por los integrantes del
-grupo, y cada línea de configuración entregada puede ser explicada y justificada
-durante la sustentación.
+Todos los comandos fueron **ejecutados y verificados** por los integrantes del grupo, y
+cada línea de configuración entregada puede ser explicada y justificada durante la
+sustentación.
 
 ---
 
@@ -261,6 +290,8 @@ durante la sustentación.
 - Enunciado del Primer Parcial — *Servicios Telemáticos*, Prof. Oscar H. Mondragón, Ph.D.
 - Notas de clase: DNS, BIND y HTTP
 - [Documentación de BIND9 en Ubuntu](https://ubuntu.com/server/docs/service-domain-name-service-dns)
+- [Documentación de mod_deflate](https://httpd.apache.org/docs/2.4/mod/mod_deflate.html) y [mod_brotli](https://httpd.apache.org/docs/2.4/mod/mod_brotli.html)
+- [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
 - RFC 1034 · *Domain Names — Concepts and Facilities*
 - RFC 1035 · *Domain Names — Implementation and Specification*
 - RFC 2845 · *Secret Key Transaction Authentication for DNS (TSIG)*
